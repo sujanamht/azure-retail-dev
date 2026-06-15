@@ -1,0 +1,78 @@
+{
+	"name": "DS_S3_Customer_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_S3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AmazonS3Location",
+				"bucketName": "retail-sales-data-szz",
+				"folderPath": "raw/customers",
+				"fileName": "customer_data.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "customer_id",
+				"type": "String"
+			},
+			{
+				"name": "first_name",
+				"type": "String"
+			},
+			{
+				"name": "last_name",
+				"type": "String"
+			},
+			{
+				"name": "email",
+				"type": "String"
+			},
+			{
+				"name": "phone",
+				"type": "String"
+			},
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "city",
+				"type": "String"
+			},
+			{
+				"name": "state_province",
+				"type": "String"
+			},
+			{
+				"name": "postal_code",
+				"type": "String"
+			},
+			{
+				"name": "registration_date",
+				"type": "String"
+			},
+			{
+				"name": "loyalty_tier",
+				"type": "String"
+			},
+			{
+				"name": "total_purchases",
+				"type": "String"
+			},
+			{
+				"name": "is_active",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

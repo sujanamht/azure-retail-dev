@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQL_SalesFact",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactSales"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

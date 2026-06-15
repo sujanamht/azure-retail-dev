@@ -1,0 +1,25 @@
+{
+	"name": "TRG_CSV_To_Parquet",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_CSV_To_Parquet",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/processed/blobs/sales/",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

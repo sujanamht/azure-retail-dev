@@ -1,0 +1,90 @@
+{
+	"name": "DS_S3_Products_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_S3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AmazonS3Location",
+				"bucketName": "retail-sales-data-szz",
+				"folderPath": "raw/products",
+				"fileName": "product_data.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "String"
+			},
+			{
+				"name": "product_name",
+				"type": "String"
+			},
+			{
+				"name": "category",
+				"type": "String"
+			},
+			{
+				"name": "sub_category",
+				"type": "String"
+			},
+			{
+				"name": "brand",
+				"type": "String"
+			},
+			{
+				"name": "sku",
+				"type": "String"
+			},
+			{
+				"name": "unit_price_usd",
+				"type": "String"
+			},
+			{
+				"name": "unit_cost_usd",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "stock_quantity",
+				"type": "String"
+			},
+			{
+				"name": "reorder_level",
+				"type": "String"
+			},
+			{
+				"name": "supplier_id",
+				"type": "String"
+			},
+			{
+				"name": "country_of_origin",
+				"type": "String"
+			},
+			{
+				"name": "is_active",
+				"type": "String"
+			},
+			{
+				"name": "created_date",
+				"type": "String"
+			},
+			{
+				"name": "weight_kg",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

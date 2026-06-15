@@ -1,0 +1,25 @@
+{
+	"name": "TRG_S3_FileArrival",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Sales_Transformation",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/raw/blobs/sales",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
