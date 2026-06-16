@@ -1762,7 +1762,7 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/processed/blobs/sales/",
-					"blobPathEndsWith": "*.csv",
+					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('TRG_CSV_To_Parquet_properties_typeProperties_scope')]",
 					"events": [
