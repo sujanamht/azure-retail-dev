@@ -9,7 +9,7 @@
 						"referenceName": "DS_ADLS_Processed_Sales_CSV",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "salesProcessed"
 				}
 			],
 			"sinks": [
@@ -21,12 +21,18 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> salesProcessed",
+				"salesProcessed derive() ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     umask: 0022,",
