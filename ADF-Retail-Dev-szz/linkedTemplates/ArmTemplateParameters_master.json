@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-Retail-Dev-szz"
+		},
+		"LS_ADLS_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSql_password": {
+			"value": ""
+		},
+		"LS_S3_secretAccessKey": {
+			"value": ""
+		},
+		"LS_ADLS_properties_typeProperties_url": {
+			"value": "https://stretaildev001sz.dfs.core.windows.net/"
+		},
+		"LS_AzureSql_properties_typeProperties_server": {
+			"value": "sql-retail-dev-001.database.windows.net"
+		},
+		"LS_AzureSql_properties_typeProperties_database": {
+			"value": "RetailDW"
+		},
+		"LS_AzureSql_properties_typeProperties_userName": {
+			"value": "szzAdmin"
+		},
+		"LS_KeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://KV-Retail-Dev-szz.vault.azure.net/"
+		},
+		"LS_S3_properties_typeProperties_accessKeyId": {
+			"value": "AKIAQUHAOQA7WAW63ORS"
+		},
+		"TRG_S3_FileArrival_properties_typeProperties_scope": {
+			"value": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
