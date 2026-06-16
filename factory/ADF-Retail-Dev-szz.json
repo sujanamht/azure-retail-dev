@@ -1,0 +1,15 @@
+{
+	"name": "ADF-Retail-Dev-szz",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "westus3",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "259f6939-7af6-477b-a7a2-0459374f1b80",
+		"tenantId": "cc840285-a2f4-4156-ae32-282cda8424e5"
+	}
+}

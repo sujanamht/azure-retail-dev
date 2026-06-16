@@ -1,0 +1,104 @@
+{
+	"name": "DF_Sales_Cleansing",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Raw_Sales",
+						"type": "DatasetReference"
+					},
+					"name": "sales"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sales_invalidCountry",
+						"type": "DatasetReference"
+					},
+					"name": "salesError"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Processed_Sales_CSV",
+						"type": "DatasetReference"
+					},
+					"name": "salesProcessed"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filterNullAndInvalid"
+				},
+				{
+					"name": "convertDateFormat"
+				},
+				{
+					"name": "removeDupOrders"
+				},
+				{
+					"name": "addedTotalAmount"
+				},
+				{
+					"name": "addedCustomerCategory"
+				},
+				{
+					"name": "countryValidation"
+				},
+				{
+					"name": "addedLoadDate"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderID as string,",
+				"          CustomerID as string,",
+				"          ProductID as string,",
+				"          Quantity as string,",
+				"          UnitPrice as string,",
+				"          OrderDate as string,",
+				"          Country as string,",
+				"          SalesChannel as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sales",
+				"sales filter(!isNull(CustomerID)",
+				"&& CustomerID != 'INVALID'",
+				" && toInteger(Quantity)>0) ~> filterNullAndInvalid",
+				"filterNullAndInvalid derive(OrderDate = coalesce(toDate(OrderDate, 'yyyy-MM-dd'), toDate(OrderDate, 'dd-MM-yyyy'), toDate(OrderDate, 'MM/dd/yyyy'))) ~> convertDateFormat",
+				"convertDateFormat aggregate(groupBy(OrderID,",
+				"          CustomerID,",
+				"          OrderDate,",
+				"          Quantity,",
+				"          UnitPrice,",
+				"          ProductID,",
+				"          Country,",
+				"          SalesChannel),",
+				"     RowCount = count()) ~> removeDupOrders",
+				"removeDupOrders derive(TotalAmount = toInteger(Quantity) * toDouble(UnitPrice)) ~> addedTotalAmount",
+				"addedTotalAmount derive(CustomerCategory = iif(TotalAmount>1000, \"Premium\", \"Standard\")) ~> addedCustomerCategory",
+				"addedCustomerCategory split(Country == 'USA' || Country == 'Canada'  || Country == 'UK' || Country == 'India',",
+				"     disjoint: false) ~> countryValidation@(ValidCountry, InvalidCountry)",
+				"countryValidation@ValidCountry derive(LoadDate = currentTimestamp()) ~> addedLoadDate",
+				"countryValidation@InvalidCountry sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> salesError",
+				"addedLoadDate sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     format: 'parquet') ~> salesProcessed"
+			]
+		}
+	}
+}
