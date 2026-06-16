@@ -22,7 +22,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DS_ADLS_Processed_Sales_CSV",
+						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					},
 					"name": "salesProcessed",
@@ -53,6 +53,9 @@
 				},
 				{
 					"name": "addedLoadDate"
+				},
+				{
+					"name": "addCountryPartition"
 				}
 			],
 			"scriptLines": [
@@ -87,6 +90,7 @@
 				"addedCustomerCategory split(Country == 'USA' || Country == 'Canada'  || Country == 'UK' || Country == 'India',",
 				"     disjoint: false) ~> countryValidation@(ValidCountry, InvalidCountry)",
 				"countryValidation@ValidCountry derive(LoadDate = currentTimestamp()) ~> addedLoadDate",
+				"addedLoadDate derive(CountryPartition = Country) ~> addCountryPartition",
 				"countryValidation@InvalidCountry sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
@@ -94,12 +98,9 @@
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> salesError",
-				"addedLoadDate sink(allowSchemaDrift: true,",
+				"addCountryPartition sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          Column_1 as string",
-				"     ),",
-				"     partitionFileNames:['sales_processed.csv'],",
+				"     format: 'parquet',",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
@@ -108,8 +109,10 @@
 				"     outputAssertFailedRows: true,",
 				"     assertFailure_fileSystem: 'error',",
 				"     assertFailure_folderPath: 'sales',",
-				"     partitionBy('hash', 1),",
-				"     format: 'parquet') ~> salesProcessed"
+				"     partitionBy('key',",
+				"          0,",
+				"          CountryPartition",
+				"     )) ~> salesProcessed"
 			]
 		}
 	}

@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_ADLS_Processed_Sales_CSV",
+						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					},
 					"name": "salesProcessed"
@@ -15,20 +15,18 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_ADLS_Curated_Sales_Parquet",
+						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "salesCurated"
 				}
 			],
 			"transformations": [],
 			"scriptLines": [
-				"source(output(",
-				"          Column_1 as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
 				"     partitionBy('hash', 1)) ~> salesProcessed",
 				"salesProcessed sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -37,7 +35,7 @@
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> salesCurated"
 			]
 		}
 	}
