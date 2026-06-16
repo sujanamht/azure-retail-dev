@@ -965,7 +965,7 @@
 								"type": "DatasetReference",
 								"parameters": {}
 							},
-							"timeout": "0.12:00:00",
+							"timeout": "0.00:03:00",
 							"sleep": 10
 						}
 					},
@@ -1639,7 +1639,8 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/processed/blobs/",
-					"ignoreEmptyBlobs": false,
+					"blobPathEndsWith": ".parquet",
+					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
