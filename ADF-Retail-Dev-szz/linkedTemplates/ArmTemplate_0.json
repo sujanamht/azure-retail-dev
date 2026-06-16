@@ -43,11 +43,11 @@
 			"type": "string",
 			"defaultValue": "AKIAQUHAOQA7WAW63ORS"
 		},
-		"Trg_Parquet_To_SQL_properties_typeProperties_scope": {
+		"TRG_CSV_To_Parquet_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
 		},
-		"TRG_CSV_To_Parquet_properties_typeProperties_scope": {
+		"Trg_Parquet_To_SQL_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
 		}
@@ -1354,6 +1354,7 @@
 							],
 							"storeSettings": {
 								"type": "AmazonS3ReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -1384,6 +1385,7 @@
 							],
 							"storeSettings": {
 								"type": "AmazonS3ReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -1414,6 +1416,7 @@
 							],
 							"storeSettings": {
 								"type": "AmazonS3ReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -1679,36 +1682,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Trg_Parquet_To_SQL')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_Parquet_To_SQL",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/processed/blobs/",
-					"ignoreEmptyBlobs": false,
-					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Parquet_To_SQL')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/TRG_CSV_To_Parquet')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1737,6 +1710,36 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_CSV_To_Parquet')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trg_Parquet_To_SQL')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_Parquet_To_SQL",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/processed/blobs/",
+					"ignoreEmptyBlobs": false,
+					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_Parquet_To_SQL')]"
 			]
 		}
 	]

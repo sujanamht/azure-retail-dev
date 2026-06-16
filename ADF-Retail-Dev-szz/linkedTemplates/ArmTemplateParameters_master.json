@@ -32,13 +32,13 @@
 		"LS_S3_properties_typeProperties_accessKeyId": {
 			"value": "AKIAQUHAOQA7WAW63ORS"
 		},
+		"TRG_CSV_To_Parquet_properties_typeProperties_scope": {
+			"value": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
+		},
 		"TRG_S3_FileArrival_properties_typeProperties_scope": {
 			"value": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
 		},
 		"Trg_Parquet_To_SQL_properties_typeProperties_scope": {
-			"value": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
-		},
-		"TRG_CSV_To_Parquet_properties_typeProperties_scope": {
 			"value": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
 		},
 		"containerUri": {
