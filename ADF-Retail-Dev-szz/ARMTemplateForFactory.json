@@ -874,7 +874,11 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": []
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
@@ -1401,7 +1405,7 @@
 								"referenceName": "DS_ADLS_Processed_Sales_CSV",
 								"type": "DatasetReference"
 							},
-							"name": "source1"
+							"name": "salesProcessed"
 						}
 					],
 					"sinks": [
@@ -1415,10 +1419,14 @@
 					],
 					"transformations": [],
 					"scriptLines": [
-						"source(allowSchemaDrift: true,",
+						"source(output(",
+						"          Column_1 as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 sink(allowSchemaDrift: true,",
+						"     ignoreNoFilesFound: false,",
+						"     partitionBy('hash', 1)) ~> salesProcessed",
+						"salesProcessed sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     umask: 0022,",
@@ -1534,6 +1542,9 @@
 						"     skipDuplicateMapOutputs: true) ~> salesError",
 						"addedLoadDate sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          Column_1 as string",
+						"     ),",
 						"     partitionFileNames:['sales_processed.csv'],",
 						"     umask: 0022,",
 						"     preCommands: [],",
