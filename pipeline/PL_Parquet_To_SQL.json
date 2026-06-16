@@ -16,19 +16,17 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DS_ADLS_Processed_Sales_CSV",
+						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"itemType"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
+						"type": "ParquetReadSettings"
 					}
 				}
 			},
@@ -62,14 +60,14 @@
 				],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "ParquetSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "ParquetReadSettings"
 						}
 					},
 					"sink": {
@@ -191,7 +189,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_ADLS_Processed_Sales_CSV",
+						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					}
 				],
