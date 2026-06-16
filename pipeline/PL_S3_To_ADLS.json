@@ -444,6 +444,7 @@
 					],
 					"storeSettings": {
 						"type": "AmazonS3ReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -473,6 +474,7 @@
 					],
 					"storeSettings": {
 						"type": "AmazonS3ReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -502,6 +504,7 @@
 					],
 					"storeSettings": {
 						"type": "AmazonS3ReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -547,7 +550,7 @@
 						"referenceName": "DS_S3_Sales_CSV",
 						"type": "DatasetReference"
 					},
-					"timeout": "0.12:00:00",
+					"timeout": "0.00:03:00",
 					"sleep": 10
 				}
 			},
