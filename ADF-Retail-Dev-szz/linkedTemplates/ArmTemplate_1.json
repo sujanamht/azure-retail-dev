@@ -34,7 +34,8 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/raw/blobs/",
+					"blobPathBeginsWith": "/raw/blobs/sales",
+					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('TRG_S3_FileArrival_properties_typeProperties_scope')]",
 					"events": [
