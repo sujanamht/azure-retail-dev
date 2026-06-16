@@ -1694,8 +1694,8 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/processed/blobs/sales",
-					"ignoreEmptyBlobs": true,
+					"blobPathBeginsWith": "/processed/blobs/",
+					"ignoreEmptyBlobs": false,
 					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
