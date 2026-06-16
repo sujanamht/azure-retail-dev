@@ -930,6 +930,8 @@
 								"storeSettings": {
 									"type": "AmazonS3ReadSettings",
 									"recursive": true,
+									"wildcardFolderPath": "raw/ sales/",
+									"wildcardFileName": "*.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
