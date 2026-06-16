@@ -1,5 +1,5 @@
 {
-	"name": "DS_ADLS_Curated_Sales_Parquet",
+	"name": "DS_ADLS_Sales_Parquet",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLS",
