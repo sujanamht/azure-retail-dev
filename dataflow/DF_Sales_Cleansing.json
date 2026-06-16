@@ -25,7 +25,11 @@
 						"referenceName": "DS_ADLS_Processed_Sales_CSV",
 						"type": "DatasetReference"
 					},
-					"name": "salesProcessed"
+					"name": "salesProcessed",
+					"rejectedDataLinkedService": {
+						"referenceName": "LS_ADLS",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -92,11 +96,16 @@
 				"     skipDuplicateMapOutputs: true) ~> salesError",
 				"addedLoadDate sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['sales_processed.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     outputAssertFailedRows: true,",
+				"     assertFailure_fileSystem: 'error',",
+				"     assertFailure_folderPath: 'sales',",
+				"     partitionBy('hash', 1),",
 				"     format: 'parquet') ~> salesProcessed"
 			]
 		}
