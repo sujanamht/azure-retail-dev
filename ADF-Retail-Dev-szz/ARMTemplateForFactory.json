@@ -432,7 +432,7 @@
 									"type": "AmazonS3ReadSettings",
 									"recursive": true,
 									"wildcardFolderPath": "raw/ sales/",
-									"wildcardFileName": "*.csv",
+									"wildcardFileName": "sales_data.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -1392,7 +1392,7 @@
 						"type": "AmazonS3Location",
 						"bucketName": "retail-sales-data-szz",
 						"folderPath": "raw/sales",
-						"fileName": "*sales_data.csv"
+						"fileName": "sales_data.csv"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
