@@ -1,0 +1,26 @@
+CustomerID,CustomerName,Email,Country,CustomerSegment
+C101,John Smith,john.smith@email.com,USA,Premium
+C102,Marie Dupont,marie.dupont@email.ca,Canada,Standard
+C103,James Wilson,james.wilson@email.co.uk,UK,Premium
+C104,Priya Sharma,priya.sharma@email.in,India,Standard
+C105,Liam Johnson,liam.johnson@email.au,Australia,Premium
+C106,Emily Davis,INVALID_EMAIL,USA,Standard
+C107,Raj Patel,,India,Premium
+C108,Sarah Brown,sarah.brown@email.au,Australia,Standard
+C109,Michael Taylor,michael.taylor@email.com,USA,Premium
+C110,Sophie Martin,sophie.martin@email.ca,Canada,Standard
+C111,Oliver Anderson,oliver.anderson@email.co.uk,UK,Premium
+C112,Aisha Khan,aisha.khan@email.in,India,Standard
+C113,Noah Thompson,noah.thompson@email.au,Australia,Premium
+C114,Isabella White,isabella.white@email.com,USA,Standard
+C115,William Harris,william.harris@email.ca,Canada,Premium
+C116,Amelia Clark,,UK,Standard
+C117,Aarav Gupta,aarav.gupta@email.in,India,Premium
+C118,Charlotte Lewis,charlotte.lewis@email.au,Australia,Standard
+C119,James Robinson,james.robinson@email.com,USA,Premium
+C120,Emma Walker,emma.walker@email.ca,Canada,Standard
+C101,John Smith,john.smith@email.com,USA,Premium
+C121,Lucas Hall,lucas.hall@email.co.uk,UK,Premium
+C122,Mia Allen,mia.allen@email.in,India,Standard
+C123,Ethan Young,ethan.young@email.au,Australia,Premium
+C124,Olivia King,olivia.king@email.com,USA,Standard

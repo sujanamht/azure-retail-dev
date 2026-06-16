@@ -1,0 +1,26 @@
+ProductID,ProductName,Category,CostPrice,SellingPrice
+P001,Wireless Headphones,Electronics,300,500
+P002,Smart Watch,Electronics,800,1200
+P003,USB-C Cable,Accessories,20,50
+P004,Bluetooth Speaker,Electronics,150,250
+P005,Laptop Stand,Accessories,200,400
+P006,4K Monitor,Electronics,500,800
+P007,Mechanical Keyboard,Electronics,150,280
+P008,Webcam HD,Electronics,100,200
+P009,Mouse Pad XL,Accessories,15,40
+P010,External SSD,Electronics,300,550
+P011,Phone Stand,Accessories,25,60
+P012,Laptop Bag,Accessories,80,150
+P013,Power Bank,Electronics,90,180
+P014,Screen Cleaner,,10,25
+P015,HDMI Cable,Accessories,15,40
+P016,Desk Lamp,Office,-50,90
+P017,Ergonomic Chair,Office,200,399
+P018,Standing Desk,Office,300,600
+P019,Cable Organizer,Accessories,10,30
+P020,Noise Canceling Mic,Electronics,120,220
+P007,Mechanical Keyboard,Electronics,150,280
+P021,Graphic Tablet,Electronics,180,350
+P022,VR Headset,Electronics,400,750
+P023,Smart Plug,Electronics,25,60
+P024,Ring Light,Office,60,130
