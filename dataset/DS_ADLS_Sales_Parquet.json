@@ -10,9 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "sales_curated.parquet",
 				"folderPath": "sales",
-				"fileSystem": "curated"
+				"fileSystem": "processed"
 			},
 			"compressionCodec": "snappy"
 		},
