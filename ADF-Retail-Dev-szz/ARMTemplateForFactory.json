@@ -46,6 +46,10 @@
 		"TRG_S3_FileArrival_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
+		},
+		"Trg_Parquet_To_SQL_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/360ed5dd-2c8d-4e46-a95a-6ace1cd11807/resourceGroups/RG-Retail-DataEngineering-Dev/providers/Microsoft.Storage/storageAccounts/stretaildev001sz"
 		}
 	},
 	"variables": {
@@ -123,7 +127,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "DS_ADLS_Processed_Sales_CSV",
+								"referenceName": "DS_ADLS_Sales_Parquet",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -136,7 +140,7 @@
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
+								"type": "ParquetReadSettings"
 							}
 						}
 					},
@@ -170,14 +174,14 @@
 						],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
+								"type": "ParquetSource",
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
+									"fileListPath": "processed/sales",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "ParquetReadSettings"
 								}
 							},
 							"sink": {
@@ -299,7 +303,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_ADLS_Processed_Sales_CSV",
+								"referenceName": "DS_ADLS_Sales_Parquet",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -347,7 +351,7 @@
 				"lastPublishTime": "2026-06-16T08:12:42Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Processed_Sales_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Sales_Parquet')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_SalesFact')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSql')]"
 			]
@@ -826,65 +830,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Curated_Sales_Parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "sales_curated.parquet",
-						"folderPath": "sales",
-						"fileSystem": "curated"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Processed_Sales_CSV')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "sales_processed.csv",
-						"folderPath": "sales",
-						"fileSystem": "processed"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Raw_Customer')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -999,6 +944,31 @@
 						"type": "String"
 					}
 				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Sales_Parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "sales",
+						"fileSystem": "processed"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
@@ -1393,6 +1363,36 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Trg_Parquet_To_SQL')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_Parquet_To_SQL",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/processed/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_Parquet_To_SQL')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DF_CSV_To_Parquet')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1402,7 +1402,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "DS_ADLS_Processed_Sales_CSV",
+								"referenceName": "DS_ADLS_Sales_Parquet",
 								"type": "DatasetReference"
 							},
 							"name": "salesProcessed"
@@ -1411,20 +1411,18 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "DS_ADLS_Curated_Sales_Parquet",
+								"referenceName": "DS_ADLS_Sales_Parquet",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
+							"name": "salesCurated"
 						}
 					],
 					"transformations": [],
 					"scriptLines": [
-						"source(output(",
-						"          Column_1 as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
+						"source(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet',",
 						"     partitionBy('hash', 1)) ~> salesProcessed",
 						"salesProcessed sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -1433,13 +1431,12 @@
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
+						"     skipDuplicateMapOutputs: true) ~> salesCurated"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Processed_Sales_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Curated_Sales_Parquet')]"
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Sales_Parquet')]"
 			]
 		},
 		{
@@ -1468,7 +1465,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "DS_ADLS_Processed_Sales_CSV",
+								"referenceName": "DS_ADLS_Sales_Parquet",
 								"type": "DatasetReference"
 							},
 							"name": "salesProcessed",
@@ -1499,6 +1496,9 @@
 						},
 						{
 							"name": "addedLoadDate"
+						},
+						{
+							"name": "addCountryPartition"
 						}
 					],
 					"scriptLines": [
@@ -1533,6 +1533,7 @@
 						"addedCustomerCategory split(Country == 'USA' || Country == 'Canada'  || Country == 'UK' || Country == 'India',",
 						"     disjoint: false) ~> countryValidation@(ValidCountry, InvalidCountry)",
 						"countryValidation@ValidCountry derive(LoadDate = currentTimestamp()) ~> addedLoadDate",
+						"addedLoadDate derive(CountryPartition = Country) ~> addCountryPartition",
 						"countryValidation@InvalidCountry sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     umask: 0022,",
@@ -1540,12 +1541,9 @@
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> salesError",
-						"addedLoadDate sink(allowSchemaDrift: true,",
+						"addCountryPartition sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     input(",
-						"          Column_1 as string",
-						"     ),",
-						"     partitionFileNames:['sales_processed.csv'],",
+						"     format: 'parquet',",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
@@ -1554,15 +1552,17 @@
 						"     outputAssertFailedRows: true,",
 						"     assertFailure_fileSystem: 'error',",
 						"     assertFailure_folderPath: 'sales',",
-						"     partitionBy('hash', 1),",
-						"     format: 'parquet') ~> salesProcessed"
+						"     partitionBy('key',",
+						"          0,",
+						"          CountryPartition",
+						"     )) ~> salesProcessed"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Raw_Sales')]",
 				"[concat(variables('factoryId'), '/datasets/sales_invalidCountry')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Processed_Sales_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Sales_Parquet')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS')]"
 			]
 		}
