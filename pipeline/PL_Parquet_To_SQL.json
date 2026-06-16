@@ -65,8 +65,7 @@
 						"type": "ParquetSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": "sales",
+							"fileListPath": "processed/sales",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
