@@ -177,7 +177,9 @@
 								"type": "ParquetSource",
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
-									"fileListPath": "processed/sales",
+									"recursive": true,
+									"wildcardFolderPath": "sales",
+									"wildcardFileName": "*.parquet",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -267,6 +269,18 @@
 											"physicalType": "decimal",
 											"scale": 2,
 											"precision": 18
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "UTF8"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
