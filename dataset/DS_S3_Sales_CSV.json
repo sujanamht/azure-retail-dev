@@ -12,7 +12,7 @@
 				"type": "AmazonS3Location",
 				"bucketName": "retail-sales-data-szz",
 				"folderPath": "raw/sales",
-				"fileName": "sales_data.csv"
+				"fileName": "*.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
