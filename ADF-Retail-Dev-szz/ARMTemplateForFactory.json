@@ -1368,7 +1368,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1380,7 +1380,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/processed/blobs/",
+					"blobPathBeginsWith": "/processed/blobs/sales",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('Trg_Parquet_To_SQL_properties_typeProperties_scope')]",
 					"events": [
