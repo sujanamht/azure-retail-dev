@@ -19,7 +19,9 @@
 						"referenceName": "DS_ADLS_Sales_Parquet",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"itemType"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
@@ -64,6 +66,7 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
+							"wildcardFolderPath": "sales",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
